@@ -10,28 +10,43 @@
 
 	<script src="<?php echo base_url('public/assets/plugins/global/plugins.bundle.js'); ?>"></script>
 	<script src="<?php echo base_url('public/assets/js/scripts.bundle.js'); ?>"></script>
+	<script src="<?php echo base_url('public/assets/jquery/dist/jquery.min.js'); ?>"></script>
 </head>
 
+<script>
+	function showAlert(text) {
+		var toastEl = document.getElementById('alert');
+		var toast = new bootstrap.Toast(toastEl, {
+			autohide: true,
+			delay: 3000
+		});
+
+		$('#alert-msg').html(text);
+
+		toast.show();
+	};
+
+	function showErrorAlert() {
+		var toastEl = document.getElementById('alert');
+		var toast = new bootstrap.Toast(toastEl, {
+			autohide: true,
+			delay: 3000
+		});
+
+		$('#alert-msg').html('Ha ocurrido un error');
+
+		toast.show();
+	};
+</script>
+
 <body id="kt_body" class="app-blank bgi-size-cover bgi-attachment-fixed bgi-position-center bgi-no-repeat">
-	<script>
-		var defaultThemeMode = "light";
-		var themeMode;
-		if (document.documentElement) {
-			if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-				themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-			} else {
-				if (localStorage.getItem("data-bs-theme") !== null) {
-					themeMode = localStorage.getItem("data-bs-theme");
-				} else {
-					themeMode = defaultThemeMode;
-				}
-			}
-			if (themeMode === "system") {
-				themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-			}
-			document.documentElement.setAttribute("data-bs-theme", themeMode);
-		}
-	</script>
+	<div class="toast" id="alert" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 20px; right: 20px;">
+		<div class="toast-header">
+			<strong class="me-auto">Notificación</strong>
+		</div>
+		<div id="alert-msg" class="toast-body">
+		</div>
+	</div>
 	<div class="d-flex flex-column flex-root" id="kt_app_root">
 		<style>
 			body {
@@ -54,35 +69,25 @@
 			<div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20">
 				<div class="bg-body d-flex flex-column align-items-stretch flex-center rounded-4 w-md-600px p-20">
 					<div class="d-flex flex-center flex-column flex-column-fluid px-lg-10 pb-15 pb-lg-20">
-						<form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework">
+						<div class="w-100 fv-plugins-bootstrap5 fv-plugins-framework">
 							<div class="text-center mb-11">
 								<h1 class="text-dark fw-bolder mb-3">Inicio de Sesión</h1>
-								<div class="text-gray-500 fw-semibold fs-6">Inicie Sesion con nosotros</div>
-							</div>
-							<div class="row g-3 mb-9">
-								<div class="col-12">
-									<a href="#" class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-										<img alt="Logo" src="<?php echo base_url('public/assets/media/svg/brand-logos/google-icon.svg'); ?>" class="h-15px me-3">Iniciar Sesión con Google
-									</a>
-								</div>
 							</div>
 							<div class="separator separator-content my-14">
 								<span class="w-125px text-gray-500 fw-semibold fs-7">Correo Electrónico</span>
 							</div>
 							<div class="fv-row mb-8 fv-plugins-icon-container">
-								<input type="text" id="txt-email" placeholder="Correo Electrónico" autocomplete="off" class="form-control bg-transparent">
-								<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+								<input type="text" id="txt-email" placeholder="Correo Electrónico" autocomplete="off" class="form-control required bg-transparent">
 							</div>
 							<div class="fv-row mb-3 fv-plugins-icon-container">
-								<input type="password" id="txt-password" placeholder="Contraseña" autocomplete="off" class="form-control bg-transparent">
-								<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+								<input type="password" id="txt-password" placeholder="Contraseña" autocomplete="off" class="form-control required bg-transparent">
 							</div>
 							<div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 								<div></div>
 								<a href="#" class="link-primary">Olvidé mi contraseña?</a>
 							</div>
 							<div class="d-grid mb-10">
-								<button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+								<button type="button" id="btn-save" class="btn btn-primary">
 									<span class="indicator-label">Verificar Credenciales</span>
 
 									<span class="indicator-progress">Por favor espere...
@@ -91,20 +96,20 @@
 								</button>
 							</div>
 							<div class="text-gray-500 text-center fw-semibold fs-6">No tienes una cuenta?
-								<a href="#" class="link-primary">Registrate</a>
+								<a href="#" class="link-primary">Registrarme</a>
 							</div>
-						</form>
+						</div>
 					</div>
 					<div class="d-flex flex-stack px-lg-10">
 						<div class="me-0">
 							<button class="btn btn-flex btn-link btn-color-gray-700 btn-active-color-primary rotate fs-base" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-offset="0px, 0px">
 								<img data-kt-element="current-lang-flag" class="w-20px h-20px rounded me-3" src="<?php echo base_url('public/assets/media/flags/spain.svg'); ?>" alt="">
-								<span data-kt-element="current-lang-name" class="me-1">Spanish</span>
+								<span data-kt-element="current-lang-name" class="me-1">Español</span>
 								<i class="ki-duotone ki-down fs-5 text-muted rotate-180 m-0"></i>
 							</button>
 							<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-4 fs-7" data-kt-menu="true" id="kt_auth_lang_menu">
 								<div class="menu-item px-3">
-									<a href="#" class="menu-link d-flex px-5" data-kt-lang="English">
+									<a href="#" class="menu-link d-flex px-5" data-kt-lang="en">
 										<span class="symbol symbol-20px me-4">
 											<img data-kt-element="lang-flag" class="rounded-1" src="<?php echo base_url('public/assets/media/flags/united-states.svg'); ?>" alt="">
 										</span>
@@ -112,11 +117,11 @@
 									</a>
 								</div>
 								<div class="menu-item px-3">
-									<a href="#" class="menu-link d-flex px-5" data-kt-lang="Spanish">
+									<a href="#" class="menu-link d-flex px-5" data-kt-lang="es">
 										<span class="symbol symbol-20px me-4">
 											<img data-kt-element="lang-flag" class="rounded-1" src="<?php echo base_url('public/assets/media/flags/spain.svg'); ?>" alt="">
 										</span>
-										<span data-kt-element="lang-name">Spanish</span>
+										<span data-kt-element="lang-name">Español</span>
 									</a>
 								</div>
 							</div>
@@ -139,3 +144,36 @@
 </body>
 
 </html>
+
+<script>
+	$(document).ready(function() {
+		$('#btn-save').on('click', function() {
+			let required = checkRequiredValues();
+
+			if (required == 0) {
+
+			} else
+				showAlert('Rellene la información');
+		});
+
+		function checkRequiredValues() {
+			let value = '';
+			let response = 0;
+			$('.required').each(function() {
+				value = $(this).val();
+
+				if (value == '') {
+					response = 1;
+					$(this).addClass('is-invalid');
+				}
+
+			});
+
+			return response;
+		}
+
+		$('.required').on('change input change', function() {
+			$(this).removeClass('is-invalid');
+		});
+	});
+</script>
